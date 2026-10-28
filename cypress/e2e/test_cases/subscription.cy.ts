@@ -1,5 +1,5 @@
-import { faker } from '@faker-js/faker';
 import HomePage from '../../pages/HomePage';
+import { generateUserData } from '../../support/utils';
 
 describe('Subscription Test Cases', () => {
   beforeEach(() => {
@@ -8,8 +8,9 @@ describe('Subscription Test Cases', () => {
   });
 
   it('Test Case 10: Verify Subscription in home page', () => {
+    const user = generateUserData();
     HomePage.verifySubscriptionVisible();
-    HomePage.subscribe(faker.internet.email());
+    HomePage.subscribe(user.email);
     HomePage.verifySubscriptionSuccessMessage();
   });
 });

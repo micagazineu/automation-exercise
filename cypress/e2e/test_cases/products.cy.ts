@@ -11,7 +11,7 @@ describe('Products Test Cases', () => {
   it('Test Case 8: Verify All Products and product detail page', () => {
     HomePage.clickProducts();
     
-    // Cypress sometimes adds #google_vignette if clicking directly, so let's handle ads in e2e.ts if needed, but it should be fine.
+    
     ProductsPage.verifyAllProductsVisible();
     ProductsPage.clickFirstProductViewProduct();
     ProductDetailsPage.verifyProductDetailsVisible();
@@ -21,7 +21,7 @@ describe('Products Test Cases', () => {
     HomePage.clickProducts();
     ProductsPage.verifyAllProductsVisible();
     
-    const searchString = 'Blue Top'; // Existing product
+    const searchString = 'Blue Top'; 
     ProductsPage.searchProduct(searchString);
     ProductsPage.verifySearchedProductsVisible();
     ProductsPage.verifyAllProductsRelatedToSearchAreVisible(searchString);

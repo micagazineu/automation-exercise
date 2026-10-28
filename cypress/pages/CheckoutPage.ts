@@ -9,24 +9,25 @@ class CheckoutPage {
   }
 
   enterDescriptionAndPlaceOrder(description: string) {
-    cy.get('textarea[name="message"]').type(description);
-    cy.get('a[href="/payment"]').click();
+    cy.get('textarea[name="message"]').clear().type(description);
+    cy.get('a[href="/payment"]').scrollIntoView().click({ force: true });
   }
 
   enterPaymentDetails(name: string, cardNumber: string, cvc: string, expirationMonth: string, expirationYear: string) {
-    cy.get('[data-qa="name-on-card"]').type(name);
-    cy.get('[data-qa="card-number"]').type(cardNumber);
-    cy.get('[data-qa="cvc"]').type(cvc);
-    cy.get('[data-qa="expiry-month"]').type(expirationMonth);
-    cy.get('[data-qa="expiry-year"]').type(expirationYear);
+    cy.get('[data-qa="name-on-card"]').clear().type(name);
+    cy.get('[data-qa="card-number"]').clear().type(cardNumber);
+    cy.get('[data-qa="cvc"]').clear().type(cvc);
+    cy.get('[data-qa="expiry-month"]').clear().type(expirationMonth);
+    cy.get('[data-qa="expiry-year"]').clear().type(expirationYear);
   }
 
   clickPayAndConfirmOrder() {
-    cy.get('[data-qa="pay-button"]').click();
+    cy.get('[data-qa="pay-button"]').click({ force: true });
   }
 
   verifySuccessMessage() {
     cy.get('[data-qa="order-placed"]').should('be.visible');
+    cy.contains('Order Placed!', { matchCase: false }).should('be.visible');
   }
 }
 

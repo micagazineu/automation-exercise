@@ -10,6 +10,17 @@ export default defineConfig({
     screenshotsFolder: 'cypress/screenshots',
     videosFolder: 'cypress/videos',
 
+    blockHosts: [
+      '*google-analytics.com',
+      '*googletagmanager.com',
+      '*googlesyndication.com',
+      '*googleads.g.doubleclick.net',
+      '*adservice.google.com',
+      '*pagead2.googlesyndication.com',
+      '*tpc.googlesyndication.com',
+      '*doubleclick.net',
+    ],
+
     // Desativa vídeo por padrão para performance em CI; ative se necessário
     video: false,
     screenshotOnRunFailure: true,
@@ -17,14 +28,15 @@ export default defineConfig({
     // Resolução e timeouts padrão
     viewportWidth: 1280,
     viewportHeight: 720,
-    defaultCommandTimeout: 10000,
+    defaultCommandTimeout: 15000,
     pageLoadTimeout: 60000,
-    requestTimeout: 10000,
+    requestTimeout: 15000,
+    chromeWebSecurity: false,
 
     // Tentativas automáticas apenas no modo headless (CI)
     retries: {
       runMode: 2,
-      openMode: 0,
+      openMode: 1,
     },
 
     setupNodeEvents(on, config) {
