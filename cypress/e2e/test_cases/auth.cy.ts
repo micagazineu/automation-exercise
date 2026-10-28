@@ -32,7 +32,7 @@ describe('Auth Test Cases', () => {
   it('Test Case 2: Login User with correct email and password', () => {
     const user = generateUserData();
 
-    // Cria o usuário via API previamente
+  
     cy.createUserViaApi(user);
 
     HomePage.clickSignupLogin();
@@ -55,7 +55,7 @@ describe('Auth Test Cases', () => {
   it('Test Case 4: Logout User', () => {
     const user = generateUserData();
 
-    // Cria o usuário via API previamente
+    
     cy.createUserViaApi(user);
 
     HomePage.clickSignupLogin();
@@ -67,14 +67,14 @@ describe('Auth Test Cases', () => {
     LoginPage.verifyLoginVisible();
     cy.url().should('include', '/login');
 
-    // Limpa a conta via API
+    
     cy.deleteUserViaApi(user.email, user.password);
   });
 
   it('Test Case 5: Register User with existing email', () => {
     const user = generateUserData();
 
-    // Garante que o e-mail já existe na base via API
+   
     cy.createUserViaApi(user);
 
     HomePage.clickSignupLogin();
@@ -82,7 +82,7 @@ describe('Auth Test Cases', () => {
     LoginPage.signup(user.name, user.email);
     LoginPage.verifySignupError();
 
-    // Limpa a conta via API
+    
     cy.deleteUserViaApi(user.email, user.password);
   });
 });

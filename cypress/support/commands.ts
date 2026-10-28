@@ -3,19 +3,13 @@
 declare global {
   namespace Cypress {
     interface Chainable {
-      /**
-       * Seletor utilitário para elementos com data-cy
-       */
+      
       getByDataCy(value: string, options?: Partial<Loggable & Timeoutable & Withinable & Shadow>): Chainable<JQuery<HTMLElement>>;
 
-      /**
-       * Cria um usuário diretamente via API para preparar estado pré-teste
-       */
+    
       createUserViaApi(user: { name: string; email: string; password: string }): Chainable<any>;
 
-      /**
-       * Deleta um usuário diretamente via API
-       */
+     
       deleteUserViaApi(email: string, password: string): Chainable<any>;
     }
   }

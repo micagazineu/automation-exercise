@@ -6,17 +6,17 @@
 import './commands';
 import 'cypress-mochawesome-reporter/register';
 
-// Ignora exceções não tratadas de scripts de terceiros (ex: Google Analytics, ads)
+
 Cypress.on('uncaught:exception', (err, runnable) => {
   return false;
 });
 
-// Bloqueia e cancela requisições de anúncios do Google
+
 beforeEach(() => {
   cy.intercept({ url: /.*(googleads|googlesyndication|doubleclick|adservice|analytics).*/ }, { statusCode: 204, body: '' });
 });
 
-// Injeta CSS no carregamento da página para ocultar elementos de anúncios e overlays
+
 Cypress.on('window:before:load', (win) => {
   const style = win.document.createElement('style');
   style.id = 'cypress-hide-ads';

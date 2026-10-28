@@ -21,11 +21,11 @@ export default defineConfig({
       '*doubleclick.net',
     ],
 
-    // Desativa vídeo por padrão para performance em CI; ative se necessário
+    
     video: false,
     screenshotOnRunFailure: true,
 
-    // Resolução e timeouts padrão
+   
     viewportWidth: 1280,
     viewportHeight: 720,
     defaultCommandTimeout: 15000,
@@ -33,17 +33,17 @@ export default defineConfig({
     requestTimeout: 15000,
     chromeWebSecurity: false,
 
-    // Tentativas automáticas apenas no modo headless (CI)
+    
     retries: {
       runMode: 2,
       openMode: 1,
     },
 
     setupNodeEvents(on, config) {
-      // Configurar reporter
+      
       require('cypress-mochawesome-reporter/plugin')(on);
 
-      // Otimizações de flags para navegadores Chromium no Linux/CI
+      
       on('before:browser:launch', (browser, launchOptions) => {
         if (browser.family === 'chromium' && browser.name !== 'electron') {
           launchOptions.args.push('--disable-dev-shm-usage');
