@@ -40,7 +40,7 @@ class HomePage {
   }
 
   subscribe(email: string) {
-    cy.get('#susbscribe_email').scrollIntoView().clear().type(email);
+    cy.get('#susbscribe_email').scrollIntoView().type(email);
     cy.get('#subscribe').click({ force: true });
   }
 

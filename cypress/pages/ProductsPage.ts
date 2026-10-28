@@ -10,7 +10,7 @@ class ProductsPage {
   }
 
   searchProduct(productName: string) {
-    cy.get('#search_product').clear().type(productName);
+    cy.get('#search_product').type(productName);
     cy.get('#submit_search').click({ force: true });
   }
 

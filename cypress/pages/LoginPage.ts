@@ -10,14 +10,14 @@ class LoginPage {
   }
 
   signup(name: string, email: string) {
-    cy.get('[data-qa="signup-name"]').clear().type(name);
-    cy.get('[data-qa="signup-email"]').clear().type(email);
+    cy.get('[data-qa="signup-name"]').type(name);
+    cy.get('[data-qa="signup-email"]').type(email);
     cy.get('[data-qa="signup-button"]').click({ force: true });
   }
 
   login(email: string, password: string) {
-    cy.get('[data-qa="login-email"]').clear().type(email);
-    cy.get('[data-qa="login-password"]').clear().type(password);
+    cy.get('[data-qa="login-email"]').type(email);
+    cy.get('[data-qa="login-password"]').type(password);
     cy.get('[data-qa="login-button"]').click({ force: true });
   }
 
