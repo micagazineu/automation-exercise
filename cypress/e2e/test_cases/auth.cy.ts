@@ -32,15 +32,9 @@ describe('Auth Test Cases', () => {
   it('Test Case 2: Login User with correct email and password', () => {
     const user = generateUserData();
 
-    // Cria o usuário previamente para testar o login
-    HomePage.clickSignupLogin();
-    LoginPage.signup(user.name, user.email);
-    SignupPage.fillAccountInfo(user.password);
-    SignupPage.clickCreateAccount();
-    SignupPage.clickContinue();
-    HomePage.clickLogout();
+    // Cria o usuário via API previamente
+    cy.createUserViaApi(user);
 
-    // Execução do Test Case 2
     HomePage.clickSignupLogin();
     LoginPage.verifyLoginVisible();
     LoginPage.login(user.email, user.password);
@@ -48,6 +42,7 @@ describe('Auth Test Cases', () => {
 
     HomePage.clickDeleteAccount();
     DeleteAccountPage.verifyAccountDeleted();
+    DeleteAccountPage.clickContinue();
   });
 
   it('Test Case 3: Login User with incorrect email and password', () => {
@@ -60,15 +55,9 @@ describe('Auth Test Cases', () => {
   it('Test Case 4: Logout User', () => {
     const user = generateUserData();
 
-    // Cria o usuário previamente
-    HomePage.clickSignupLogin();
-    LoginPage.signup(user.name, user.email);
-    SignupPage.fillAccountInfo(user.password);
-    SignupPage.clickCreateAccount();
-    SignupPage.clickContinue();
-    HomePage.clickLogout();
+    // Cria o usuário via API previamente
+    cy.createUserViaApi(user);
 
-    // Execução do Test Case 4
     HomePage.clickSignupLogin();
     LoginPage.verifyLoginVisible();
     LoginPage.login(user.email, user.password);
@@ -77,23 +66,23 @@ describe('Auth Test Cases', () => {
     HomePage.clickLogout();
     LoginPage.verifyLoginVisible();
     cy.url().should('include', '/login');
+
+    // Limpa a conta via API
+    cy.deleteUserViaApi(user.email, user.password);
   });
 
   it('Test Case 5: Register User with existing email', () => {
     const user = generateUserData();
 
-    // Registra o usuário primeiro
-    HomePage.clickSignupLogin();
-    LoginPage.signup(user.name, user.email);
-    SignupPage.fillAccountInfo(user.password);
-    SignupPage.clickCreateAccount();
-    SignupPage.clickContinue();
-    HomePage.clickLogout();
+    // Garante que o e-mail já existe na base via API
+    cy.createUserViaApi(user);
 
-    // Execução do Test Case 5: Tentar registrar novamente com o mesmo e-mail
     HomePage.clickSignupLogin();
     LoginPage.verifySignupVisible();
     LoginPage.signup(user.name, user.email);
     LoginPage.verifySignupError();
+
+    // Limpa a conta via API
+    cy.deleteUserViaApi(user.email, user.password);
   });
 });

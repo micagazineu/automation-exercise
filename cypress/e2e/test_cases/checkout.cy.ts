@@ -15,11 +15,12 @@ describe('Checkout Test Cases', () => {
     HomePage.visit();
     HomePage.verifyHomePageVisible();
 
-    // 1. Register User
+    // 1. Register User via UI
     HomePage.clickSignupLogin();
     LoginPage.signup(user.name, user.email);
     SignupPage.fillAccountInfo(user.password);
     SignupPage.clickCreateAccount();
+    SignupPage.verifyAccountCreated();
     SignupPage.clickContinue();
     HomePage.verifyLoggedInAs(user.name);
 
@@ -49,32 +50,25 @@ describe('Checkout Test Cases', () => {
   it('Test Case 16: Place Order: Login before Checkout', () => {
     const user = generateUserData();
 
-    // Pre-condition: Register user
-    HomePage.visit();
-    HomePage.clickSignupLogin();
-    LoginPage.signup(user.name, user.email);
-    SignupPage.fillAccountInfo(user.password);
-    SignupPage.clickCreateAccount();
-    SignupPage.clickContinue();
-    HomePage.clickLogout();
+    // Cria o usuário via API previamente para testar o login antes do checkout
+    cy.createUserViaApi(user);
 
-    // Test Case 16 execution
     HomePage.visit();
     HomePage.verifyHomePageVisible();
 
-    // Login
+    // 1. Login
     HomePage.clickSignupLogin();
     LoginPage.login(user.email, user.password);
     HomePage.verifyLoggedInAs(user.name);
 
-    // Add product to cart
+    // 2. Add product to cart
     HomePage.clickProducts();
     ProductsPage.clickFirstProductViewProduct();
     ProductDetailsPage.addToCart();
     ProductDetailsPage.clickContinueShopping();
     HomePage.clickCart();
 
-    // Checkout
+    // 3. Checkout
     CartPage.verifyCartPageVisible();
     CartPage.proceedToCheckout();
     CheckoutPage.verifyAddressDetails();
@@ -84,7 +78,7 @@ describe('Checkout Test Cases', () => {
     CheckoutPage.clickPayAndConfirmOrder();
     CheckoutPage.verifySuccessMessage();
 
-    // Delete account
+    // 4. Delete account
     HomePage.clickDeleteAccount();
     DeleteAccountPage.verifyAccountDeleted();
     DeleteAccountPage.clickContinue();
